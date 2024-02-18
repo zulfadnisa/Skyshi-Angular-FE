@@ -9,14 +9,13 @@
       >
       <div
         class="title"
-        data-cy="todo-title"
         [ngClass]="{ 'edit-title': isEditMode }"
       >
-        <h2 #textEl *ngIf="!isEditMode">
+        <h2 data-cy="todo-title" #textEl *ngIf="!isEditMode">
           {{ activityData?.title }}
         </h2>
         <ng-container *ngIf="isEditMode">
-          <input #inputEl matInput [formControl]="titleForm" />
+          <input data-cy="todo-title" #inputEl matInput [formControl]="titleForm" />
           {{ inputEl?.focus() }}
         </ng-container>
       </div>
@@ -26,7 +25,7 @@
     </div>
 
     <div class="buttons">
-      <button
+      <button *ngIf="dataItems?.length"
         data-cy="todo-sort-button"
         mat-icon-button
         class="sort-button"
@@ -61,10 +60,11 @@
       <img
         data-cy="todo-empty-state"
         src="../../assets/image/todo-empty-state.png"
+        (click)="addItem('new')"
       />
     </div>
     <div class="list-card" *ngIf="dataItems?.length">
-      <mat-card data-cy="todo-item-0" *ngFor="let card of dataItems">
+      <mat-card data-cy="todo-item" *ngFor="let card of dataItems">
         <mat-checkbox
           data-cy="todo-item-checkbox"
           [(ngModel)]="card.done"

@@ -1,10 +1,8 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
-  MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { SubSink } from 'subsink';
 import { DashboardService } from '../dashboard.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs';
@@ -26,7 +24,7 @@ export class AddItemDialogComponent implements OnInit, OnDestroy {
   filteredPriority: any[] = [];
   selectedPrio = null;
   form: UntypedFormGroup;
-  private subs = new SubSink();
+  private subs:any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -71,7 +69,7 @@ export class AddItemDialogComponent implements OnInit, OnDestroy {
     return '';
   }
   searchPriority() {
-    this.subs.sink = this.form
+    this.subs = this.form
       .get('priority')
       ?.valueChanges.pipe(debounceTime(300))
       .subscribe((search: any) => {
@@ -119,7 +117,7 @@ export class AddItemDialogComponent implements OnInit, OnDestroy {
       this.isLoading = true;
 
       if (this.data?.from === 'edit') {
-        this.subs.sink = this.dashboardService
+        this.subs = this.dashboardService
           .updateActivityItem(this.data?.id, payload)
           .subscribe(
             (resp: any) => {
@@ -131,7 +129,7 @@ export class AddItemDialogComponent implements OnInit, OnDestroy {
             }
           );
       } else {
-        this.subs.sink = this.dashboardService
+        this.subs = this.dashboardService
           .addActivityItem(payload)
           .subscribe(
             (resp: any) => {

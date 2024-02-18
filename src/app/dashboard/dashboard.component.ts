@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DashboardService } from '../dashboard.service';
-import { SubSink } from 'subsink';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteItemDialogComponent } from '../delete-item-dialog/delete-item-dialog.component';
 
@@ -13,7 +12,7 @@ import { DeleteItemDialogComponent } from '../delete-item-dialog/delete-item-dia
 export class DashboardComponent implements OnInit, OnDestroy {
   data: any = [];
   isLoading = false;
-  private subs: any = new SubSink();
+  private subs:any;
 
   constructor(
     private router: Router,
@@ -26,7 +25,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   getData() {
     this.isLoading = true;
-    this.subs.sink = this.dashboardService.getData().subscribe(
+    this.subs = this.dashboardService.getData().subscribe(
       (resp: any) => {
         this.data = resp?.length ? resp : [];
         this.isLoading = false;
@@ -38,7 +37,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   addActivity() {
     this.isLoading = true;
-    this.subs.sink = this.dashboardService.addActivity().subscribe(
+    this.subs = this.dashboardService.addActivity().subscribe(
       (resp: any) => {
         if (resp) {
           this.isLoading = false
@@ -51,9 +50,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
   deleteActivity(data: any) {
-    this.subs.sink = this.dialog
+    this.subs = this.dialog
       .open(DeleteItemDialogComponent, {
-        disableClose: true,
+        disableClose: false,
         data: { ...data, from: 'activity' },
         autoFocus: false,
         width: '420px',
@@ -61,15 +60,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       })
       .afterClosed()
       .subscribe((result: any) => {
-        console.log(`Dialog result: ${result}`);
         if (result === 'deleted') {
-          this.getData();
-          const popUp = this.dialog.open(DeleteItemDialogComponent, {
+          this.dialog.open(DeleteItemDialogComponent, {
             data: { from: 'deleted' },
             autoFocus: false,
             width: '400px',
             height: '80px',
           });
+          this.getData();
         }
       });
   }

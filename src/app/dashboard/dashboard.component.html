@@ -11,10 +11,8 @@
       <img data-cy="activity-empty-state" src="../../assets/image/activity-empty-state.png" />
     </div>
     <div class="list-card" *ngIf="data?.length && !isLoading">
-      <mat-card data-cy="activity-item-0" *ngFor="let card of data" (click)="viewDetail(card)">
-        <mat-card-header
-          ><h4 data-cy="activity-item-title">{{ card?.title }}</h4></mat-card-header
-        >
+      <mat-card data-cy="activity-item" *ngFor="let card of data;" (click)="viewDetail(card)">
+        <h4 data-cy="activity-item-title">{{ card?.title }}</h4>
         <mat-card-actions>
           <div class="card-action">
             <span data-cy="activity-item-date">{{

@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubSink } from 'subsink';
 import { DashboardService } from '../dashboard.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddItemDialogComponent } from '../add-item-dialog/add-item-dialog.component';
@@ -32,31 +31,31 @@ export class DashboardDetailComponent implements OnInit, OnDestroy {
       name: 'Terbaru',
       value: 'terbaru',
       src: '../../assets/image/terbaru.png',
-      datacy:'sort-latest'
+      datacy: 'sort-latest',
     },
     {
       name: 'Terlama',
       value: 'terlama',
       src: '../../assets/image/terlama.png',
-      datacy:'sort-oldest'
+      datacy: 'sort-oldest',
     },
     {
       name: 'A-Z',
       value: 'asc',
       src: '../../assets/image/sort-az.png',
-      datacy:'sort-az'
+      datacy: 'sort-az',
     },
     {
       name: 'Z-A',
       value: 'desc',
       src: '../../assets/image/sort za.png',
-      datacy:'sort-za'
+      datacy: 'sort-za',
     },
     {
       name: 'Belum Selesai',
       value: 'not-done',
       src: '../../assets/image/not-done.png',
-      datacy:'sort-unfinished'
+      datacy: 'sort-unfinished',
     },
   ];
 
@@ -65,8 +64,8 @@ export class DashboardDetailComponent implements OnInit, OnDestroy {
   @ViewChild('inputEl') inputEl: ElementRef;
   @ViewChild('textEl') textEl: ElementRef;
   @ViewChild('pencilEl') pencilEl: ElementRef;
-  private subs = new SubSink();
-
+  private subs:any
+  
   constructor(
     private renderer: Renderer2,
     private route: ActivatedRoute,
@@ -95,7 +94,7 @@ export class DashboardDetailComponent implements OnInit, OnDestroy {
   }
   getOneActivity() {
     this.isLoading = true;
-    this.subs.sink = this.dashboardService
+    this.subs = this.dashboardService
       .getOneData(this.activityId)
       .subscribe(
         (resp) => {
@@ -128,7 +127,7 @@ export class DashboardDetailComponent implements OnInit, OnDestroy {
         title: this.titleForm?.value,
       };
       this.isLoading = true;
-      this.subs.sink = this.dashboardService.updateActivity(newData).subscribe(
+      this.subs = this.dashboardService.updateActivity(newData).subscribe(
         (resp) => {
           this.isLoading = false;
           this.typeSorted = null;
@@ -141,9 +140,9 @@ export class DashboardDetailComponent implements OnInit, OnDestroy {
     }
   }
   addItem(from: string, item?: any) {
-    this.subs.sink = this.dialog
+    this.subs = this.dialog
       .open(AddItemDialogComponent, {
-        disableClose: true,
+        disableClose: false,
         data: { activityId: this.activityId, from, ...item },
         autoFocus: false,
         width: '800px',
@@ -159,21 +158,17 @@ export class DashboardDetailComponent implements OnInit, OnDestroy {
       });
   }
   deleteItem(data: any) {
-    this.subs.sink = this.dialog
-      .open(DeleteItemDialogComponent, {
-        disableClose: true,
-        data: { ...data, from: 'item' },
-        autoFocus: false,
-        width: '420px',
-        height: '300px',
-      })
-      .afterClosed()
-      .subscribe((result: any) => {
-        console.log(`Dialog result: ${result}`);
-        if (result === 'deleted') {
-          this.getOneActivity();
-        }
-      });
+    this.subs = this.dialog.open(DeleteItemDialogComponent, {
+      disableClose: false,
+      data: { ...data, from: 'item' },
+      autoFocus: false,
+      width: '420px',
+      height: '300px',
+    }).afterClosed().subscribe((result: any) => {
+      if (result === 'deleted') {
+        this.getOneActivity();
+      }
+    });
   }
   updateStatus(item: any) {
     const currStatus = item?.done === true ? 0 : 1;
@@ -185,7 +180,7 @@ export class DashboardDetailComponent implements OnInit, OnDestroy {
       this.isLoading = true;
       const updateItem = { ...item, is_active: currStatus };
       delete updateItem['done'];
-      this.subs.sink = this.dashboardService
+      this.subs = this.dashboardService
         .updateActivityItem(item?.id, updateItem)
         .subscribe(
           (resp: any) => {
