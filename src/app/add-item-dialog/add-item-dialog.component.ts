@@ -41,6 +41,8 @@ export class AddItemDialogComponent implements OnInit, OnDestroy {
     this.filteredPriority = this.listPriority;
     if (this.data?.from === 'edit' && this.data?.activityId) {
       this.populateItem();
+    }else{
+      this.form?.get('priority')?.patchValue({ value: 'very-high', label: 'Very High', color: 'red' })
     }
   }
   initForm() {
@@ -55,7 +57,7 @@ export class AddItemDialogComponent implements OnInit, OnDestroy {
     );
     const currData = {
       title: this.data?.title,
-      priority: currPriority ? currPriority : null,
+      priority: currPriority ? currPriority : { value: 'very-high', label: 'Very High', color: 'red' },
     };
     this.form?.patchValue(currData,{emitEvent:false});
   }

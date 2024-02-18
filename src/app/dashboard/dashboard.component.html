@@ -1,26 +1,26 @@
 <div>
   <div class="header">
-    <h2>Activity</h2>
-    <button mat-raised-button class="custom-button" (click)="addActivity()">
+    <h2 data-cy="activity-title">Activity</h2>
+    <button data-cy="activity-add-button" mat-raised-button class="custom-button" (click)="addActivity()">
       <mat-icon>add</mat-icon>
       <span>Tambah</span>
     </button>
   </div>
   <div class="content">
     <div class="no-data" *ngIf="!data?.length && !isLoading">
-      <img src="../../assets/image/activity-empty-state.png" />
+      <img data-cy="activity-empty-state" src="../../assets/image/activity-empty-state.png" />
     </div>
     <div class="list-card" *ngIf="data?.length && !isLoading">
-      <mat-card *ngFor="let card of data" (click)="viewDetail(card)">
+      <mat-card data-cy="activity-item-0" *ngFor="let card of data" (click)="viewDetail(card)">
         <mat-card-header
-          ><h4>{{ card?.title }}</h4></mat-card-header
+          ><h4 data-cy="activity-item-title">{{ card?.title }}</h4></mat-card-header
         >
         <mat-card-actions>
           <div class="card-action">
-            <span>{{
+            <span data-cy="activity-item-date">{{
               card?.created_at | date : "dd MMMM yyyy" : "" : "id"
             }}</span>
-            <button
+            <button data-cy="activity-item-delete-button"
               mat-icon-button
               (click)="$event.stopPropagation(); deleteActivity(card)"
             >

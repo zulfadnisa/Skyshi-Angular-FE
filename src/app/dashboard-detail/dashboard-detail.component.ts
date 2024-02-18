@@ -32,26 +32,31 @@ export class DashboardDetailComponent implements OnInit, OnDestroy {
       name: 'Terbaru',
       value: 'terbaru',
       src: '../../assets/image/terbaru.png',
+      datacy:'sort-latest'
     },
     {
       name: 'Terlama',
       value: 'terlama',
       src: '../../assets/image/terlama.png',
+      datacy:'sort-oldest'
     },
     {
       name: 'A-Z',
       value: 'asc',
       src: '../../assets/image/sort-az.png',
+      datacy:'sort-az'
     },
     {
       name: 'Z-A',
       value: 'desc',
       src: '../../assets/image/sort za.png',
+      datacy:'sort-za'
     },
     {
       name: 'Belum Selesai',
       value: 'not-done',
       src: '../../assets/image/not-done.png',
+      datacy:'sort-unfinished'
     },
   ];
 

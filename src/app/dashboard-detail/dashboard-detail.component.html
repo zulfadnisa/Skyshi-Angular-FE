@@ -1,10 +1,17 @@
 <div *ngIf="!isLoading">
   <div class="header">
     <div class="sub-header">
-      <mat-icon (click)="backToHome()" style="cursor: pointer"
+      <mat-icon
+        data-cy="todo-back-button"
+        (click)="backToHome()"
+        style="cursor: pointer"
         >arrow_back_ios</mat-icon
       >
-      <div class="title" [ngClass]="{ 'edit-title': isEditMode }">
+      <div
+        class="title"
+        data-cy="todo-title"
+        [ngClass]="{ 'edit-title': isEditMode }"
+      >
         <h2 #textEl *ngIf="!isEditMode">
           {{ activityData?.title }}
         </h2>
@@ -13,40 +20,60 @@
           {{ inputEl?.focus() }}
         </ng-container>
       </div>
-      <button mat-icon-button>
+      <button data-cy="todo-title-edit-button" mat-icon-button>
         <img #pencilEl src="../../assets/image/pencil-outline.png" />
       </button>
     </div>
 
     <div class="buttons">
-      <button mat-icon-button class="sort-button" [matMenuTriggerFor]="menu">
+      <button
+        data-cy="todo-sort-button"
+        mat-icon-button
+        class="sort-button"
+        [matMenuTriggerFor]="menu"
+      >
         <img src="../../assets/image/sort.png" />
       </button>
-      <button mat-raised-button class="custom-button" (click)="addItem('new')">
+      <button
+        data-cy="todo-add-button"
+        mat-raised-button
+        class="custom-button"
+        (click)="addItem('new')"
+      >
         <mat-icon>add</mat-icon>
         <span>Tambah</span>
       </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let sort of listSort" (click)="sortData(sort?.value)">
-        <img [src]="sort?.src" style="margin-right: 7px;"/>
-        <span>{{sort?.name}}</span>
+      <mat-menu #menu="matMenu" data-cy="sort">
+        <button
+          [attr.data-cy]="sort?.datacy"
+          mat-menu-item
+          *ngFor="let sort of listSort"
+          (click)="sortData(sort?.value)"
+        >
+          <img [src]="sort?.src" style="margin-right: 7px" />
+          <span>{{ sort?.name }}</span>
         </button>
       </mat-menu>
     </div>
   </div>
   <div class="content">
     <div class="no-data" *ngIf="!dataItems?.length">
-      <img src="../../assets/image/todo-empty-state.png" />
+      <img
+        data-cy="todo-empty-state"
+        src="../../assets/image/todo-empty-state.png"
+      />
     </div>
     <div class="list-card" *ngIf="dataItems?.length">
-      <mat-card *ngFor="let card of dataItems">
+      <mat-card data-cy="todo-item-0" *ngFor="let card of dataItems">
         <mat-checkbox
+          data-cy="todo-item-checkbox"
           [(ngModel)]="card.done"
           [ngClass]="{ 'item-not-done': !card.done }"
           class="checked-item"
           (change)="updateStatus(card)"
         ></mat-checkbox>
         <mat-icon
+          data-cy="todo-item-priority-indicator"
           class="icon-circle"
           [ngClass]="{
             red: card?.priority === 'very-high',
@@ -58,15 +85,30 @@
           >circle</mat-icon
         >
         <div class="desc">
-          <div [ngClass]="{ 'item-done': card?.done }" style="font-size: 16px;">{{ card?.title }}</div>
-          <button mat-icon-button (click)="addItem('edit', card)">
+          <div
+            data-cy="todo-item-title"
+            [ngClass]="{ 'item-done': card?.done }"
+            style="font-size: 16px"
+          >
+            {{ card?.title }}
+          </div>
+          <button
+            data-cy="todo-item-edit-button"
+            mat-icon-button
+            (click)="addItem('edit', card)"
+          >
             <img
               style="width: 45%"
               src="../../assets/image/pencil-outline.png"
             />
           </button>
         </div>
-        <button mat-icon-button class="delete-item" (click)="deleteItem(card)">
+        <button
+          data-cy="todo-item-delete-button"
+          mat-icon-button
+          class="delete-item"
+          (click)="deleteItem(card)"
+        >
           <mat-icon>delete_outline</mat-icon>
         </button>
       </mat-card>

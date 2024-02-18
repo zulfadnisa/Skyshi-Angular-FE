@@ -1,16 +1,16 @@
-<div style="width: 100%; height: 100%">
+<div style="width: 100%; height: 100%" data-cy="modal-add">
   <div class="header-dialog">
-    <h2>Tambah List Item</h2>
-    <button mat-icon-button (click)="close()" tabindex="-1">
+    <h2 data-cy="modal-add-title">Tambah List Item</h2>
+    <button mat-icon-button (click)="close()" tabindex="-1" data-cy="modal-add-close-button">
       <mat-icon>close</mat-icon>
     </button>
   </div>
   <ng-container *ngIf="!isLoading">
     <mat-dialog-content class="dialog-content" [formGroup]="form">
       <div class="name-item">
-        <p>NAMA LIST ITEM</p>
+        <p data-cy="modal-add-name-title">NAMA LIST ITEM</p>
         <mat-form-field appearance="outline">
-          <input
+          <input data-cy="modal-add-name-input"
             matInput
             placeholder="Tambahkan nama Activity"
             formControlName="title"
@@ -24,7 +24,7 @@
         </mat-form-field>
       </div>
       <div class="priority">
-        <p style="font-size: 12px; font-weight: 600">
+        <p data-cy="modal-add-priority-title" style="font-size: 12px; font-weight: 600">
           PRIORITY <i class="fa fa-circle" style="font-size: 24px"></i>
         </p>
         <mat-form-field appearance="outline">
@@ -44,7 +44,7 @@
             "
             >circle</mat-icon
           >
-          <input matInput formControlName="priority" [matAutocomplete]="auto" />
+          <input data-cy="modal-add-priority-dropdown" matInput formControlName="priority" [matAutocomplete]="auto" placeholder="Pilih priority" />
           <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
           <mat-autocomplete
             #auto="matAutocomplete"
@@ -52,9 +52,10 @@
             position="below"
             (closed)="checkSelectedOption()"
           >
-            <mat-option
+            <mat-option data-cy="modal-add-priority-dropdown"
               *ngFor="let option of filteredPriority"
               (click)="selectedPriority(option)"
+              [attr.data-cy]="'modal-add-priority-'+(option?.value === 'normal'? 'medium' : option?.value)"
             >
               <div style="display: flex; align-items: baseline">
                 <mat-icon
@@ -92,7 +93,7 @@
       </div>
     </mat-dialog-content>
     <mat-dialog-actions align="end" style="border-top: 1px solid #e5e5e5">
-      <button
+      <button data-cy="modal-add-save-button"
         [disabled]="form.invalid"
         mat-button
         class="button-delete"
