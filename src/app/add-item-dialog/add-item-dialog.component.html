@@ -1,0 +1,108 @@
+<div style="width: 100%; height: 100%">
+  <div class="header-dialog">
+    <h2>Tambah List Item</h2>
+    <button mat-icon-button (click)="close()" tabindex="-1">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <ng-container *ngIf="!isLoading">
+    <mat-dialog-content class="dialog-content" [formGroup]="form">
+      <div class="name-item">
+        <p>NAMA LIST ITEM</p>
+        <mat-form-field appearance="outline">
+          <input
+            matInput
+            placeholder="Tambahkan nama Activity"
+            formControlName="title"
+          />
+          <mat-error
+            *ngIf="form.get('title')?.invalid && form.get('title')?.touched"
+            style="color: #f44336"
+          >
+            This field is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="priority">
+        <p style="font-size: 12px; font-weight: 600">
+          PRIORITY <i class="fa fa-circle" style="font-size: 24px"></i>
+        </p>
+        <mat-form-field appearance="outline">
+          <mat-icon
+            matPrefix
+            [ngClass]="{
+              red: form.get('priority')?.value?.value === 'very-high',
+              yellow: form.get('priority')?.value?.value === 'high',
+              green: form.get('priority')?.value?.value === 'medium',
+              blue: form.get('priority')?.value?.value === 'low',
+              purple: form.get('priority')?.value?.value === 'very-low'
+            }"
+            *ngIf="
+              ['very-high', 'high', 'medium', 'low', 'very-low']?.includes(
+                form.get('priority')?.value?.value
+              )
+            "
+            >circle</mat-icon
+          >
+          <input matInput formControlName="priority" [matAutocomplete]="auto" />
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            [displayWith]="displayLabel.bind(this)"
+            position="below"
+            (closed)="checkSelectedOption()"
+          >
+            <mat-option
+              *ngFor="let option of filteredPriority"
+              (click)="selectedPriority(option)"
+            >
+              <div style="display: flex; align-items: baseline">
+                <mat-icon
+                  [ngClass]="{
+                    red: option?.value === 'very-high',
+                    yellow: option?.value === 'high',
+                    green: option?.value === 'normal',
+                    blue: option?.value === 'low',
+                    purple: option?.value === 'very-low'
+                  }"
+                  *ngIf="
+                    [
+                      'very-high',
+                      'high',
+                      'normal',
+                      'low',
+                      'very-low'
+                    ]?.includes(option?.value)
+                  "
+                  >circle</mat-icon
+                >
+                <span>{{ option?.label }}</span>
+              </div>
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error
+            *ngIf="
+              form.get('priority')?.invalid && form.get('priority')?.touched
+            "
+            style="color: #f44336"
+          >
+            This field is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end" style="border-top: 1px solid #e5e5e5">
+      <button
+        [disabled]="form.invalid"
+        mat-button
+        class="button-delete"
+        (click)="addItem()"
+      >
+        Simpan
+      </button>
+    </mat-dialog-actions>
+  </ng-container>
+  <div *ngIf="isLoading" class="center-spinner" style="height: 50%">
+    <mat-spinner> </mat-spinner>
+  </div>
+</div>

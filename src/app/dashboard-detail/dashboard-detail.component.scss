@@ -1,0 +1,99 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  .sub-header {
+    display: flex;
+    align-items: baseline;
+    h2 {
+      font-weight: 500;
+      font-size: 30px;
+      margin: 0 5px 0 10px;
+    }
+    .edit-title {
+      width: 30rem !important;
+    }
+    .title {
+      max-width: 50rem;
+      input,
+      input:hover,
+      input:focus,
+      input:active {
+        background-color: transparent;
+        border: 1px solid black;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        outline: none;
+        font-size: 30px;
+        width: 100%;
+      }
+    }
+  }
+  .buttons {
+    display: flex;
+    align-items: baseline;
+    .custom-button {
+      background-color: #16abf8;
+      color: white;
+      border-radius: 45px;
+      height: 45px;
+      width: 120px;
+    }
+    .sort-button {
+      color: #e5e5e5;
+      border-radius: 45px;
+      height: 45px;
+      width: 45px;
+      border: 1px solid #e5e5e5;
+      margin-right: 10px;
+    }
+  }
+}
+.content {
+  margin: 30px 0 20px;
+  .no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px 0 10px;
+    img {
+      width: 50%;
+      height: 50%;
+    }
+  }
+  .list-card {
+    mat-card {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 14px;
+      .item-done{
+        text-decoration-line: line-through;
+      }      
+      .checked-item {
+        width: 4%;
+        margin-top: -2px;
+        cursor: pointer;
+      }
+      .icon-circle {
+        width: 4%;
+      }
+      .desc {
+        width: 89%;
+        display: flex;
+        align-items: baseline;
+      }
+
+      .delete-item {
+        width: 3%;
+      }
+    }
+  }
+}
+:host::ng-deep.checked-item .mat-checkbox-background {
+  background-color: #16abf8;
+}
+:host::ng-deep.item-not-done .mat-checkbox-background {
+  background-color: transparent ;
+}

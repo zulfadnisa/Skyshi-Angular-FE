@@ -1,0 +1,40 @@
+.header-dialog {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 30px 0;
+  h2{
+    font-weight: 600;
+    font-size: 18px;
+  }
+}
+.mat-dialog-content {
+  margin: 0;
+  padding: 20px 30px 10px;
+}
+.name-item {
+  p {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  mat-form-field {
+    width: 100%;
+  }
+}
+.button-delete {
+  background-color: #16ABF8;
+  font-size: 18px;
+  color: white;
+  width: 130px;
+  height: 50px;
+  border-radius: 45px;
+  font-weight: 550;
+}
+.button-delete:disabled{
+  color:rgba(255, 255, 255, 0.895);
+}
+.mat-dialog-actions{
+  padding: 5px 35px;
+}
