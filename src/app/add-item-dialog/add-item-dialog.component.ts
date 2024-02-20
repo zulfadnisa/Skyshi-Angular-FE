@@ -118,7 +118,7 @@ export class AddItemDialogComponent implements OnInit, OnDestroy {
 
       if (this.data?.from === 'edit') {
         this.subs = this.dashboardService
-          .updateActivityItem(this.data?.id, payload)
+          .updateItem(this.data?.id, payload)
           .subscribe(
             (resp: any) => {
               this.dialogRef.close('added');

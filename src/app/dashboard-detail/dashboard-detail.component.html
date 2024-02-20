@@ -7,15 +7,17 @@
         style="cursor: pointer"
         >arrow_back_ios</mat-icon
       >
-      <div
-        class="title"
-        [ngClass]="{ 'edit-title': isEditMode }"
-      >
+      <div class="title" [ngClass]="{ 'edit-title': isEditMode }">
         <h2 data-cy="todo-title" #textEl *ngIf="!isEditMode">
           {{ activityData?.title }}
         </h2>
         <ng-container *ngIf="isEditMode">
-          <input data-cy="todo-title" #inputEl matInput [formControl]="titleForm" />
+          <input
+            data-cy="todo-title"
+            #inputEl
+            matInput
+            [formControl]="titleForm"
+          />
           {{ inputEl?.focus() }}
         </ng-container>
       </div>
@@ -25,7 +27,8 @@
     </div>
 
     <div class="buttons">
-      <button *ngIf="dataItems?.length"
+      <button
+        *ngIf="dataItems?.length"
         data-cy="todo-sort-button"
         mat-icon-button
         class="sort-button"
@@ -44,7 +47,7 @@
       </button>
       <mat-menu #menu="matMenu" data-cy="sort">
         <button
-          [attr.data-cy]="sort?.datacy"
+          data-cy="sort-selection"
           mat-menu-item
           *ngFor="let sort of listSort"
           (click)="sortData(sort?.value)"
@@ -67,10 +70,10 @@
       <mat-card data-cy="todo-item" *ngFor="let card of dataItems">
         <mat-checkbox
           data-cy="todo-item-checkbox"
-          [(ngModel)]="card.done"
+          [checked]="card.done"
           [ngClass]="{ 'item-not-done': !card.done }"
           class="checked-item"
-          (change)="updateStatus(card)"
+          (click)="updateStatus(card)"
         ></mat-checkbox>
         <mat-icon
           data-cy="todo-item-priority-indicator"
@@ -85,12 +88,8 @@
           >circle</mat-icon
         >
         <div class="desc">
-          <div
-            data-cy="todo-item-title"
-            [ngClass]="{ 'item-done': card?.done }"
-            style="font-size: 16px"
-          >
-            {{ card?.title }}
+          <div [ngClass]="{ 'item-done': card?.done }" style="font-size: 16px">
+            <span data-cy="todo-item-title">{{ card?.title }}</span>
           </div>
           <button
             data-cy="todo-item-edit-button"

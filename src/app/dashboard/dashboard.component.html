@@ -7,8 +7,8 @@
     </button>
   </div>
   <div class="content">
-    <div class="no-data" *ngIf="!data?.length && !isLoading">
-      <img data-cy="activity-empty-state" src="../../assets/image/activity-empty-state.png" />
+    <div class="no-data" *ngIf="!data?.length && !isLoading" data-cy="activity-empty-state">
+      <img src="../../assets/image/activity-empty-state.png" />
     </div>
     <div class="list-card" *ngIf="data?.length && !isLoading">
       <mat-card data-cy="activity-item" *ngFor="let card of data;" (click)="viewDetail(card)">

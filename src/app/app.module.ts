@@ -18,7 +18,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
-import { DeleteItemDialogComponent } from './delete-item-dialog/delete-item-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
@@ -31,7 +30,6 @@ registerLocaleData(localeId, 'id');
     DashboardComponent,
     DashboardDetailComponent,
     AddItemDialogComponent,
-    DeleteItemDialogComponent,
   ],
   imports: [
     BrowserModule,

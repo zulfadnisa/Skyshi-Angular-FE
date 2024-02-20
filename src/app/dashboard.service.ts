@@ -91,7 +91,7 @@ export class DashboardService {
         })
       );
   }
-  updateActivityItem(id: any, updateData: any) {
+  updateItem(id: any, updateData: any) {
     const postData = { email: 'zulfadzanisa@gmail.com', ...updateData };
     return this.http
       .patch(`https://todo.api.devcode.gethired.id/todo-items/${id}`, postData)

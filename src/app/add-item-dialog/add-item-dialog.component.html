@@ -52,10 +52,9 @@
             position="below"
             (closed)="checkSelectedOption()"
           >
-            <mat-option data-cy="modal-add-priority-dropdown"
+            <mat-option data-cy="modal-add-priority-item"
               *ngFor="let option of filteredPriority"
               (click)="selectedPriority(option)"
-              [attr.data-cy]="'modal-add-priority-'+(option?.value === 'normal'? 'medium' : option?.value)"
             >
               <div style="display: flex; align-items: baseline">
                 <mat-icon
