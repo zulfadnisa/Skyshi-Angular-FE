@@ -173,7 +173,7 @@ export class DashboardDetailComponent implements OnInit, OnDestroy {
         '<span data-cy="modal-delete-confirm-button">Hapus</span>',
       cancelButtonText:
         '<span data-cy="modal-delete-cancel-button">Batal</span>',
-      willOpen: (modalEl) => {
+      didOpen: (modalEl) => {
         modalEl.setAttribute('data-cy', 'modal-delete');
       },
       customClass: {
